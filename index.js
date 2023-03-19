@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
+const stripe = require("stripe")(process.env.DB_STRIPE_KEY);
 
 app.use(cors());
 app.use(express.json());
@@ -27,6 +28,30 @@ async function run() {
     const carousel = db.collection("carousel");
     const reviewData = db.collection("review");
     const userCollection = db.collection('user');
+    const paymentData = db.collection('pay');
+
+
+    app.get('/loadData', async (req, res) => {
+      const data = await paymentData.find().toArray();
+      res.send(data);
+    })
+
+    app.post('/create-payment-intent', async (req, res) => {
+      const booking = req.body;
+      const price = booking.price;
+      const amount = price * 100;
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        currency: 'usd',
+        amount: amount,
+        "payment_method_types": [
+          "card"
+        ]
+      });
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    });
 
 
     app.get('/products', async (req, res) => {
