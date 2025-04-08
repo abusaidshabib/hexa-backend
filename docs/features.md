@@ -1,0 +1,23 @@
+### Product Related features list
+- Create Product.
+- Update Product.
+- Delete Product.
+- View Product Details.
+- List of products.
+- Product availability depending colors, size.
+- Product image depending color (Auto-change image when user selects a different color).
+- Inventory product stock tracking.
+- Featured Products.
+- Bulk Import/Export.
+- Draft Product (there is an option that help to decide product publishable or not).
+- Product Tags & Attributes helps to search.
+- Search products by Name/Tag or other things.
+- Filter by Color/Size/Brand
+- Sort by price/Rating
+- Product Reviews & Ratings
+- Recently Viewed products with every possible details
+- Wishlist/Favorite
+- Add to Cart
+- Slug-Based URLs
+- ElasticSearch Integration
+- Unit Tests for Product APIs
