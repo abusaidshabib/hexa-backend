@@ -1,5 +1,3 @@
-/Express/.env
-/Express/.vercel
-/Express/node_modules
-
-/mongoose-v1/node_modules
+.env
+.vercel
+node_modules
