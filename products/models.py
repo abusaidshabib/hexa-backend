@@ -30,7 +30,7 @@ class Category(TimeStampedModel):
     """Category model"""
     name = models.CharField(max_length=100, unique=True)
     parent_category = models.ForeignKey(
-        ParentCategory, on_delete=models.CASCADE, related_name='subcategories')
+        ParentCategory, on_delete=models.CASCADE, related_name='categories')
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(
         upload_to='category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
