@@ -11,6 +11,11 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+static/
+
+staticfiles/
+media/
+
 downloads/
 eggs/
 .eggs/

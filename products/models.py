@@ -11,7 +11,7 @@ class ParentCategory(TimeStampedModel):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(
-        upload_to='category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
+        upload_to='parent_category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
 
     class Meta:
         """Meta class for Category model"""
@@ -103,7 +103,7 @@ class Product(TimeStampedModel):
 
     # product options
     subcategory = models.ManyToManyField(
-        SubCategory, blank=True, null=True, related_name="products")
+        SubCategory, blank=True, related_name="products")
     color = models.ManyToManyField(Color, blank=True)
     size = models.ManyToManyField(Size, blank=True)
     brand = models.ManyToManyField(
@@ -122,7 +122,8 @@ class Product(TimeStampedModel):
 class ProductImages(models.Model):
     """Product Images"""
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="products/")
+    image = models.ImageField(
+        upload_to='products/%Y/%m/%d/')
     thumbnail = models.BooleanField(default=False)
 
     def __str__(self):
