@@ -15,7 +15,11 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = []
 
 
-INSTALLED_APPS = [
+# applications
+
+PROJECT_APPS = ['core', 'products']
+PACKAGE_APPS = ['rest_framework']
+DEFAULT_INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -24,6 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+INSTALLED_APPS = PROJECT_APPS + DEFAULT_INSTALLED_APPS + PACKAGE_APPS
+
+
+# middlewares
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -89,7 +97,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 
 STATIC_URL = "static/"
