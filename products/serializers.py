@@ -21,24 +21,8 @@ class ParentCategorySerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class that defines model and fields for the ParentCategory serializer."""
         model = ParentCategory
-        fields = ['name', 'description', 'image']
-
-
-# class ParentCategorySerializer(serializers.ModelSerializer):
-#     """Serializer for the ParentCategory model to handle data validation and transformation."""
-#     image = serializers.SerializerMethodField()
-
-#     class Meta:
-#         """Meta class that defines model and fields for the ParentCategory serializer."""
-#         model = ParentCategory
-#         fields = ['name', 'description', 'image']
-
-#     def get_image(self, obj):
-#         """Method to retrieve image URL if available."""
-#         request = self.context.get('request')
-#         if obj.image and hasattr(obj.image, 'url'):
-#             return request.build_absolute_uri(obj.image.url) if request else obj.image.url
-#         return None
+        fields = ('name', 'description', 'image', 'slug')
+        read_only_fields = ['slug']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -48,7 +32,8 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class that defines model and fields for the Category serializer."""
         model = Category
-        fields = ("name", "parent_category", "description", "image")
+        fields = ("name", "parent_category", "description", "image", 'slug')
+        read_only_fields = ['slug']
 
 
 class SubCategorySerializer(serializers.ModelSerializer):

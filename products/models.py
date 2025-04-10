@@ -1,4 +1,5 @@
 """ products/models.py """
+from autoslug import AutoSlugField
 
 from django.db import models
 from django.core.validators import MinValueValidator, FileExtensionValidator
@@ -12,6 +13,9 @@ class ParentCategory(TimeStampedModel):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(
         upload_to='parent_category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
+
+    slug = AutoSlugField(populate_from='name',
+                         unique=True, always_update=False)
 
     class Meta:
         """Meta class for Category model"""
@@ -31,6 +35,9 @@ class Category(TimeStampedModel):
     image = models.ImageField(
         upload_to='category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
 
+    slug = AutoSlugField(populate_from='name',
+                         unique=True, always_update=False)
+
     class Meta:
         """Meta class for Category model"""
         verbose_name = "Category"
@@ -49,6 +56,8 @@ class SubCategory(TimeStampedModel):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(
         upload_to='subcategory_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
+    slug = AutoSlugField(populate_from='name',
+                         unique=True, always_update=False)
 
     class Meta:
         """Meta class for Category model"""
@@ -100,6 +109,8 @@ class Product(TimeStampedModel):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
                                 MinValueValidator(0.0)])
+    slug = AutoSlugField(populate_from='name',
+                         unique=True, always_update=False)
 
     # product options
     subcategory = models.ManyToManyField(
