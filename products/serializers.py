@@ -71,6 +71,8 @@ class ParentCategorySerializer(serializers.ModelSerializer):
         read_only_fields = ['slug']
 
 
+
+
 class ProductSerializer(serializers.ModelSerializer):
     """Serializer for the Product model to handle data validation and transformation."""
 

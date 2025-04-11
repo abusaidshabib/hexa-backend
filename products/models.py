@@ -119,11 +119,12 @@ class Product(TimeStampedModel):
     # product options
     subcategory = models.ManyToManyField(
         SubCategory, blank=True, related_name="products")
-    color = models.ManyToManyField(Color, blank=True)
-    size = models.ManyToManyField(Size, blank=True)
+    color = models.ManyToManyField(Color, blank=True, related_name="products")
+    size = models.ManyToManyField(Size, blank=True, related_name="products")
     brand = models.ManyToManyField(
-        Brand, blank=True)
-    material = models.ManyToManyField(Material, blank=True)
+        Brand, blank=True, related_name="products")
+    material = models.ManyToManyField(
+        Material, blank=True, related_name="products")
 
     stock = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     active = models.BooleanField(default=False)
@@ -136,7 +137,8 @@ class Product(TimeStampedModel):
 
 class ProductImages(models.Model):
     """Product Images"""
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product_images")
     image = models.ImageField(
         upload_to='products/%Y/%m/%d/')
     thumbnail = models.BooleanField(default=False)
