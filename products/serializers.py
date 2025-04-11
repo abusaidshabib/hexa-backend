@@ -26,11 +26,11 @@ class SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class that defines model and fields for the SubCategory serializer."""
         model = SubCategory
-        fields = ("name", "category", "description", "image")
+        fields = ("name", "category", "description", "image", 'slug')
 
     def validate_category(self, value):
         """Validate that the category belongs to the same parent category as the instance."""
-        if value.parent_category != self.instance.parent_category:
+        if self.instance and value != self.instance.category:
             raise serializers.ValidationError(
                 "The category must belong to the same parent category."
             )

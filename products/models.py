@@ -15,6 +15,7 @@ class ParentCategory(TimeStampedModel):
         upload_to='parent_category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
 
     slug = AutoSlugField(populate_from='name',
+                         db_index=True,
                          unique=True, always_update=False)
 
     class Meta:
@@ -36,6 +37,7 @@ class Category(TimeStampedModel):
         upload_to='category_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
 
     slug = AutoSlugField(populate_from='name',
+                         db_index=True,
                          unique=True, always_update=False)
 
     class Meta:
@@ -57,6 +59,7 @@ class SubCategory(TimeStampedModel):
     image = models.ImageField(
         upload_to='subcategory_img/%Y/%m/%d/', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg', 'webp'])])
     slug = AutoSlugField(populate_from='name',
+                         db_index=True,
                          unique=True, always_update=False)
 
     class Meta:
@@ -110,6 +113,7 @@ class Product(TimeStampedModel):
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
                                 MinValueValidator(0.0)])
     slug = AutoSlugField(populate_from='name',
+                         db_index=True,
                          unique=True, always_update=False)
 
     # product options
