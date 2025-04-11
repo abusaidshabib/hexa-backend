@@ -10,17 +10,6 @@ from django.shortcuts import get_object_or_404
 from products.models import ParentCategory, Category, SubCategory
 from products.serializers import ParentCategorySerializer, CategorySerializer, SubCategorySerializer
 
-#    if request.method == 'GET':
-#        print(category_slug)
-#        if category_slug is not None:
-#             category = get_object_or_404(Category, slug=category_slug)
-
-#         else:
-#             categories = Category.objects.all()  # pylint: disable=no-member
-#             serializer = CategorySerializer(
-#                 categories, many=True, context={'request': request})
-#             return Response(serializer.data)
-
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def parent_category_crud(request, parent_category_slug: str = None):
