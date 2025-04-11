@@ -71,12 +71,70 @@ class ParentCategorySerializer(serializers.ModelSerializer):
         read_only_fields = ['slug']
 
 
+class ColorSerializer(serializers.ModelSerializer):
+    """Serializer for the Color model to handle data validation and transformation."""
+    class Meta:
+        """Meta class that defines model and fields for the Color serializer."""
+        model = Color
+        fields = ["name", "hex_code"]
+
+
+class SizeSerializer(serializers.ModelSerializer):
+    """Serializer for the Size model to handle data validation and transformation."""
+    class Meta:
+        """Meta class that defines model and fields for the Size serializer."""
+        model = Size
+        fields = ["name"]
+
+
+class BrandSerializer(serializers.ModelSerializer):
+    """Serializer for the Brand model to handle data validation and transformation."""
+    class Meta:
+        """Meta class that defines model and fields for the Brand serializer."""
+        model = Brand
+        fields = ["name"]
+
+
+class MaterialSerializer(serializers.ModelSerializer):
+    """Serializer for the Material model to handle data validation and transformation."""
+    class Meta:
+        """Meta class that defines model and fields for the Material serializer."""
+        model = Material
+        fields = ["name"]
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    """Serializer for the ProductImage model to handle data validation and transformation."""
+    class Meta:
+        """Meta class that defines model and fields for the ProductImage serializer."""
+        model = ProductImages
+        fields = ["image", "thumbnail"]
 
 
 class ProductSerializer(serializers.ModelSerializer):
     """Serializer for the Product model to handle data validation and transformation."""
 
+    material = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Material.objects.all()  # pylint: disable=no-member
+    )
+    brand = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Brand.objects.all()  # pylint: disable=no-member
+    )
+    size = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Size.objects.all()  # pylint: disable=no-member
+    )
+    color = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Color.objects.all()  # pylint: disable=no-member
+    )
+    subcategory = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=SubCategory.objects.all()  # pylint: disable=no-member
+    )
+
+    product_images = ProductImageSerializer(
+        many=True, required=False, read_only=True)
+
     class Meta:
         """Meta class that defines model and fields for the Product serializer."""
         models = Product
-        fields = ["title", "description", "price", "stock"]
+        fields = ["title", "description", "price",
+                  "slug", "subcategory", "color", "brand", "size", "material", "stock", "active", "manufacturer", "featured", "product_images"]
