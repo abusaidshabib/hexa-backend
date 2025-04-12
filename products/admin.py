@@ -45,7 +45,7 @@ admin.site.register(SubCategory, SubCategoryAdmin)
 
 class ColorAdmin(admin.ModelAdmin):
     """Color admin model register"""
-    list_display = ('name', 'hex_code')
+    list_display = ('name',)
     search_fields = ('name', )
 
 
@@ -82,7 +82,7 @@ class ProductAdmin(admin.ModelAdmin):
     """Product admin model register"""
 
     list_display = ('title', 'description', 'price', 'subcategory_display', 'color_display', 'size_display',
-                    'brand_display', 'material_display', 'stock', 'active', 'manufacturer', 'featured')
+                    'brand_display', 'material_display', 'stock', 'active', 'manufacturer', 'featured', 'thumbnail')
     search_fields = ('title', 'subcategory__name', 'color__name',
                      'size__name', 'brand__name', 'material__name')
 
@@ -117,7 +117,7 @@ admin.site.register(Product, ProductAdmin)
 
 class ProductImagesAdmin(admin.ModelAdmin):
     """Product Images admin model register"""
-    list_display = ('product', 'image', 'thumbnail')
+    list_display = ('product', 'image')
     search_fields = ('product__title',)
 
 

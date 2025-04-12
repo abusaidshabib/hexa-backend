@@ -76,7 +76,7 @@ class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class that defines model and fields for the Color serializer."""
         model = Color
-        fields = ["name", "hex_code"]
+        fields = ["name"]
 
 
 class SizeSerializer(serializers.ModelSerializer):
@@ -115,10 +115,10 @@ class ProductSerializer(serializers.ModelSerializer):
     """Serializer for the Product model to handle data validation and transformation."""
 
     material = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Material.objects.all()  # pylint: disable=no-member
+        many=True, queryset=Material.objects.all()   # pylint: disable=no-member
     )
     brand = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Brand.objects.all()  # pylint: disable=no-member
+        many=True, queryset=Brand.objects.all()    # pylint: disable=no-member
     )
     size = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Size.objects.all()  # pylint: disable=no-member
@@ -133,8 +133,15 @@ class ProductSerializer(serializers.ModelSerializer):
     product_images = ProductImageSerializer(
         many=True, required=False, read_only=True)
 
+    subcategory = serializers.SlugRelatedField(
+        queryset=SubCategory.objects.all(),  # pylint: disable=no-member
+        slug_field='slug',  # Look up by the slug of Category
+        required=True
+    )
+
     class Meta:
         """Meta class that defines model and fields for the Product serializer."""
-        models = Product
+        model = Product
         fields = ["title", "description", "price",
                   "slug", "subcategory", "color", "brand", "size", "material", "stock", "active", "manufacturer", "featured", "product_images"]
+        read_only_fields = ['slug']

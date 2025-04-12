@@ -75,7 +75,6 @@ class SubCategory(TimeStampedModel):
 class Color(TimeStampedModel):
     """Color model"""
     name = models.CharField(max_length=100, unique=True)
-    hex_code = models.CharField(max_length=7, unique=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -130,6 +129,8 @@ class Product(TimeStampedModel):
     active = models.BooleanField(default=False)
     manufacturer = models.CharField(max_length=250)
     featured = models.BooleanField(default=False)
+    thumbnail = models.ImageField(
+        upload_to='thumbnails/%Y/%m/%d/')
 
     def __str__(self):
         return f"{self.title} (${self.price})"
@@ -141,7 +142,6 @@ class ProductImages(models.Model):
         Product, on_delete=models.CASCADE, related_name="product_images")
     image = models.ImageField(
         upload_to='products/%Y/%m/%d/')
-    thumbnail = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.product.title} - Image"  # pylint: disable=no-member

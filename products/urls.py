@@ -5,7 +5,8 @@ from django.urls import path
 from products.views import (
     parent_category_crud,
     category_crud,
-    sub_category_crud
+    sub_category_crud,
+    product_crud
 )
 
 
@@ -22,4 +23,7 @@ urlpatterns = [
     path("sub-category/", sub_category_crud, name="sub_category_create"),
     path("sub-category/<str:sub_category_slug>/",
          sub_category_crud, name="sub_category_update"),
+
+    path("products/", product_crud,  name="product_crud"),
+    path("products/<str:product_slug>/", product_crud,  name="product_crud")
 ]
