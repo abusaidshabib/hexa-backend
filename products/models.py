@@ -111,7 +111,7 @@ class Product(TimeStampedModel):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
                                 MinValueValidator(0.0)])
-    slug = AutoSlugField(populate_from='name',
+    slug = AutoSlugField(populate_from='title',
                          db_index=True,
                          unique=True, always_update=False)
 

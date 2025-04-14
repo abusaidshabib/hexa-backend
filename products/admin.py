@@ -77,42 +77,7 @@ class MaterialAdmin(admin.ModelAdmin):
 
 admin.site.register(Material, MaterialAdmin)
 
-
-class ProductAdmin(admin.ModelAdmin):
-    """Product admin model register"""
-
-    list_display = ('title', 'description', 'price', 'subcategory_display', 'color_display', 'size_display',
-                    'brand_display', 'material_display', 'stock', 'active', 'manufacturer', 'featured', 'thumbnail')
-    search_fields = ('title', 'subcategory__name', 'color__name',
-                     'size__name', 'brand__name', 'material__name')
-
-    def subcategory_display(self, obj):
-        """Display subcategories of a product"""
-        return ", ".join([subcategory.name for subcategory in obj.subcategory.all()])
-    subcategory_display.short_description = 'Subcategories'
-
-    def color_display(self, obj):
-        """Display colors of a product"""
-        return ", ".join([color.name for color in obj.color.all()])
-    color_display.short_description = 'Colors'
-
-    def size_display(self, obj):
-        """Display sizes of a product"""
-        return ", ".join([size.name for size in obj.size.all()])
-    size_display.short_description = 'Sizes'
-
-    def brand_display(self, obj):
-        """Display brands of a product"""
-        return ", ".join([brand.name for brand in obj.brand.all()])
-    brand_display.short_description = 'Brands'
-
-    def material_display(self, obj):
-        """Display materials of a product"""
-        return ", ".join([material.name for material in obj.material.all()])
-    material_display.short_description = 'Materials'
-
-
-admin.site.register(Product, ProductAdmin)
+admin.site.register(Product)
 
 
 class ProductImagesAdmin(admin.ModelAdmin):
