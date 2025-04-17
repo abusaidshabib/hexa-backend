@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16.8-alpine3.20
+    environment:
+      POSTGRES_DB: ${DJ_DB_NAME}
+      POSTGRES_USER: ${DJ_DB_USER}
+      POSTGRES_PASSWORD: ${DJ_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - env/.env.dev # Change this to .env.prod or .env.test based on the environment
+
+  api:
+    build: .
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py create_dev_superuser && python manage.py runserver 0.0.0.0:8000"
+    container_name: hexadrf
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app # 🔥 This is key for live reloading!
+    environment:
+      DJANGO_SECRET_KEY: ${DJ_SECRET_KEY}
+      DEBUG: ${DEBUG}
+      DJANGO_LOGLEVEL: ${DJ_LOGLEVEL}
+      DJANGO_ALLOWED_HOSTS: ${DJ_ALLOWED_HOSTS}
+      DATABASE_ENGINE: ${DJ_DB_ENGINE}
+      DATABASE_NAME: ${DJ_DB_NAME}
+      DATABASE_USERNAME: ${DJ_DB_USER}
+
+      DATABASE_PASSWORD: ${DJ_DB_PASSWORD}
+      DATABASE_HOST: ${DJ_DB_HOST}
+      DATABASE_PORT: ${DJ_DB_PORT}
+    env_file:
+      - env/.env.dev
+volumes:
+  postgres_data:

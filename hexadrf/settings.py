@@ -8,18 +8,19 @@ env = environ.Env(DEBUG=(bool, False))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '/env/.env.dev'))
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('DJ_SECRET_KEY')
 
-DEBUG = env('DEBUG')
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJ_ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 
 # applications
 
-PROJECT_APPS = ['core', 'products']
+PROJECT_APPS = ['core', 'authentication', 'products']
 PACKAGE_APPS = ['rest_framework']
 DEFAULT_INSTALLED_APPS = [
     "django.contrib.admin",
