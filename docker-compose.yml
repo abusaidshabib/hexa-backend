@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - env/.env.dev # Change this to .env.prod or .env.test based on the environment
+      - ./env/.env.dev # Change this to .env.prod or .env.test based on the environment
 
   api:
     build: .
@@ -35,6 +35,6 @@ services:
       DATABASE_HOST: ${DJ_DB_HOST}
       DATABASE_PORT: ${DJ_DB_PORT}
     env_file:
-      - env/.env.dev
+      - ./env/.env.dev
 volumes:
   postgres_data:
